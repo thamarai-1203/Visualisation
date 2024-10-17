@@ -4,7 +4,7 @@ import * as d3 from "d3";
 // TODO: load the dataset
 
 const dataset = await d3.csv("data/penguins.csv", d3.autoType);
-
+ 
 
 // TODO: store the names of your 3 numerical attributes and one categorical attribute
 const numerics = ["bill_length_mm","bill_depth_mm","flipper_length_mm"];
