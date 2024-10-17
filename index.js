@@ -1,6 +1,5 @@
 import * as d3 from "d3";
 
-
 // Task 1 your solution here
 // TODO: load the dataset
 
