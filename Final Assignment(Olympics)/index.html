@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization Final Project</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./index.js"></script>
+    <script src="https://cdn.skypack.dev/d3"></script>
+</head>
+<body>
+    <center>
+        <h1>Paris Olympics</h1><br>
+        <img src="./src/logo.png" width="500" height="500">
+    </center>
+    
+    <div class="container">
+        <center><h3>SELECT A PLOT TO DISPLAY</h3></center>
+        <center><select id="plot-select">
+            <option value="scatter-plot-matrix">Scatter Plot</option>
+            <option value="parallel-coordinates">Horizontal Parallel Coordinates</option>
+            <option value="mosaic-plot">Mosaic Plot</option>
+        </select></center>
+
+    <div class="legend-container">
+        <div class="plot" id="legend">
+            <h2>Legend</h2>
+        </div>
+    </div>
+
+    
+    <div class="plot-container">
+        <div class="plot" id="scatter-plot-matrix">
+            <h2>Scatter Plot</h2>
+        </div>
+        <div class="plot" id="parallel-coordinates" style="display: none;">
+            <h2>Horizontal Parallel Coordinates</h2>
+        </div>
+        <div class="plot" id="mosaic-plot" style="display: none;">
+            <h2>Mosaic Plot</h2>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the selected plot
+        document.getElementById('plot-select').addEventListener('change', function() {
+            const selectedPlot = this.value;
+            const plots = document.querySelectorAll('.plot-container .plot');
+            
+            // Hide all plots except the legend
+            plots.forEach(plot => plot.style.display = 'none');
+            
+            // TO yhow the selected plot
+            document.getElementById(selectedPlot).style.display = 'block';
+        });
+
+        // D3 plot setup
+        const width = 1800; 
+        const height = 1800; 
+        const labelHeight = 50;
+
+        d3.select("div#legend").append("svg").attr("viewBox", [5.0, 5.0, width, labelHeight]);
+
+        d3.select("div#scatter-plot-matrix").append("svg").attr("viewBox", `0 50 ${width} ${height}`);
+
+        d3.select("div#parallel-coordinates").append("svg").attr("viewBox", [0, 0, width, height]);
+
+        d3.select("div#mosaic-plot").append("svg").attr("viewBox", `0 0 ${width} ${height}`);
+    </script>
+</body>
+</html>

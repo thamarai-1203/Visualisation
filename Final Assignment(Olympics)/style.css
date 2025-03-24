@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  font-style: "color:white";
+  margin: 0;
+  padding: 0;
+  color :white;
+  background:black;
+  
+}
+.container {
+  padding: 20px;
+}
+.plot {
+  margin-bottom: 40px;
+}
+svg {
+  border: 1px solid #ddd;
+  color:white;
+}
+h1 {
+  margin-bottom: 10px;
+  font-size : 30px;
+  color:white;
+}
+h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color:white;
+}
