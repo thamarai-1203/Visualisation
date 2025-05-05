@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="module" src="/node_modules/zero-md/dist/zero-md.min.js"></script>
+    <title>Visualization Assignment 3</title>
+</head>
+
+<body>
+    <main>
+        <h1><a href="/">Visualization Lab Class 2023</a></h1>
+        <h2>Assignment 3</h2>
+
+        <h3>Time Series</h3>
+        <p>
+            You have seen several techniques for visualizing time series data in the lecture.
+            In this assignment, we're going to visualize stock data with two line charts: The first will show the full time range available,
+            the second will show a smaller part of the first. The smaller part will be selected by via a brush. 
+        </p>
+        <p>
+            The stock data is loaded for you from the multiple csv files in the <span class="monospace">index.js</span>.
+            After some data transformation that has already been done for you, each line contains stock information such as <i>Open</i> and <i>Close</i> value for one 
+            day for a certain stock.
+            To visualize the data, we will need a <a href="https://observablehq.com/@d3/d3-scaletime">time scale</a>, since dates are a special kind of data type that needs special handling.
+            The data is grouped by stock name in the <span class="monospace">linechart.js</span>.
+            The grouped data is also printed to the console, so you can inspect its structure there.
+        </p>
+
+        <section>
+            <div class="task">
+                <h3>Task 1: Line Chart (30%)</h3>
+                <p>
+                    Complete the <span class="monospace">linechart.js</span> to actually draw a line chart of the stock 
+                    data with the <span class="monospace">Date</span> for x and the <span
+                        class="monospace">Close</span> value for y.
+                <ol>
+                    <li>
+                        Define <span class="monospace">attributeX</span> and <span class="monospace">attributeY</span>
+                        to be the attributes of the stock data that should be used
+                        to fulfill the task above.
+                    </li>
+                    <li>
+                        Create the domains for the scales for the x and y axis.
+                    </li>
+                    <li>
+                        Draw the line for each stock with a distinguishable color scheme. The scheme has already been defined for you in <span class="monospace">index.js</span>;
+                        it needs to be defined there so that it can be used by more than one chart.
+                    </li>
+                    <li>
+                        Add labels for each line to the right of the plot at the last position of the line. The label should 
+                        contain both the name of the stock as well as its last close value. 
+                    </li>
+                </ol>
+                </p>
+                <p>
+                    Hint:
+                <ol>
+                    <li>
+                        You can use <span class="monospace">shortenText</span> to cut
+                        off long stock names; the function is already imported from the <span
+                            class="monospace">utils.js</span> in the src folder.
+                    </li>
+                    <li>
+                        You can use <span class="monospace"><a href="https://github.com/d3/d3-shape#lines">d3.line</a>
+                        </span> to create a line generator. The <span class="monospace">x()</span> function takes the
+                        scaled value of the <span class="monospace">attributeX</span> and the <span
+                            class="monospace">y()</span> function
+                        takes the scaled value of the <span class="monospace">attributeY</span> of each data item.
+                    </li>
+                    <li>
+                        Drawing the lines means you have to add them as path elements to the <span
+                            class="monospace">series</span> variable.
+                    </li>
+                </ol>
+                </p>
+            </div>
+        </section>
+        <section>
+            <div class="task">
+                <h3>Task 2: Add Brushing to Line Chart (20%)</h3>
+                <p>
+                    Add brushing to the line chart to allow selecting a certain time range.
+                    The selected time range should be used to define the data shown in the 2nd line chart. 
+                    The <a href="https://www.d3indepth.com/interaction/#brushing">d3.brushX()</a> has already
+                    been defined for you. It is your task to use the information given to draw a second line 
+                    chart in <span class="monospace">svg#linechart_two</span>.
+
+                    <ol>
+                        <li>
+                            Complete the reset function to reset the visualization to its original state.
+                        </li>
+                        <li>
+                            Complete the brushed function to show the selected data in <span class="monospace">svg#linechart_two</span>.
+                        </li>
+                    </ol>
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="task">
+                <h3>Task 3: Layout type (10%)</h3>
+                <p>
+                    In the lecture you were introduced to different layout types of coordinated visualizations: 
+                    <ul>
+                        <li>Focus + Context</li>
+                        <li>Detail and Overview</li>
+                        <li>Coordinated Multiview</li>
+                    </ul>
+                </p>
+                <p>
+                    Please state which layout type you implemented in Task 1 and 2. Give at least one reason as to why you chose that layout type.  
+                    Please, write your answer in the <span class="monospace">layout_type.md</span>.
+                </p>
+            </div>
+
+            <zero-md src="layout_type.md"></zero-md>
+            
+        </section>
+
+        <h4>Line Charts</h4>
+        <svg id="linechart_one"></svg>
+        <svg id="linechart_two"></svg>
+
+        <h3>Sets</h3>
+        <p>
+            In the lecture, we're having a look at parallel sets and mosaic plots as two common ways to visualize aggregated data using categorical attributes as keys.
+            The data we're going to work with shows the relation between hair color, eye color and sex of a group of 592 students. We have prepared it as a hierarchy in <span
+                class="monospace">hair-eye-color.js</span>.
+            The function returns an object with the property <span class="monospace">name</span> and <span
+                class="monospace">children</span> which again holds
+            similar objects up to the leaves. The leaves are the last split of the data by sex, and contain also a name and the frequency (<span class="monospace">freq</span>) of the group.
+
+            The hair-eye-color data is also printed to the console for you to inspect its structure.
+        </p>
+        <section>
+            <div class="task">
+                <h3>Task 4: Mosaic Plot (35%)</h3>
+                <p>
+                    Implement a three-way mosaic plot in <span class="monospace">mosaic-plot.js</span> using the data that we have
+                    prepared for you in <span class="monospace">hair-eye-color.js</span>.
+
+                <ol>
+                    <li>
+                        Define the hierarchy for the data. For this, you should use <a
+                            href="https://github.com/d3/d3-hierarchy#hierarchy"><span
+                                class="monospace">d3.hierarchy</span></a>
+                        to create a hierarchical data structure.
+                    </li>
+                    <li>
+                        Mosaic plots can also be seen as a special kind of treemap.
+                        Define the layout for the mosaic plot as the <span class="monospace">root</span>
+                        variable. For this, you should use <a href="https://d3js.org/d3-hierarchy/treemap"><span
+                                class="monospace">d3.treemap</span></a>
+                    </li>
+                    <li>
+                        Create the rectangle denoting each combination of attributes with their frequency.
+                        Color them using the provided color function. Label each rectangle with the frequency
+                        of this combination. Add a tooltip using the <span class="monospace">title</span> element which shows the attributes represented.
+                    </li>
+                    <li>
+                        Add the axis to the plot, aligned to the first elements in each dimension.
+                    </li>
+
+                </ol>
+                </p>
+                <p>
+                    Hint:
+                <ol>
+                    <li>
+                        When creating the hierarchy, you have to set the <a
+                            href="https://github.com/d3/d3-hierarchy#node_sum"><span class="monospace">sum
+                                function</span></a> to sum up the
+                        frequencies values for each attribute (hair color, eye color, sex) in the hierarchy.
+                    </li>
+                    <li>
+                        To create the axis, you can use a recursive function that adds the axis for each level of your hierarchy,
+                        and use the already calculated dimensions of each division.
+                    </li>
+                </ol>
+
+                </p>
+            </div>
+            <div class="task">
+                <h3>Task 5: Parallel Sets (5%)</h3>
+                <p>
+                    Using the same dataset as in Task 4, sketch out a parallel sets visualization. Take a picture / screenshot of your sketch (no programming needed) and save it in your solution folder.
+                </p>
+            </div>
+        </section>
+
+        <div>
+            <svg id="mosaicPlot"></svg>
+        </div>
+
+    </main>
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>
