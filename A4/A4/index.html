@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="module" src="index.js"></script>
+    <script src="./src/mds.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
+    <title>Assignment 4</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Assignment 4</h1>
+
+        <section>
+            <h2>Node-Link Diagrams</h2>
+            <div class="task">
+                <h3>Task 1: Indented Tree (50%)</h3>
+                <p>In this task you will visualize the taxonomy of 6.718 species of mammals (<a href="https://www.mammaldiversity.org/" target="_blank">source</a>).
+                    Given the hierarchical nature of this dataset, we will use a Node-Link diagram, in particular, an indented tree. This will let us explore the mammals classification through different levels:
+                    subclass, infraclass, order, family and genus.</p>
+                <p>Go back to the slides from <b>Lecture 9: Trees</b>, and take a look at slide 8. This is what we are looking to build (sans the numerical attribute at the right).</p>
+                <p>The data has already been loaded for you in <code>index.js</code>. We are logging it into the console for you to analyse.</p>
+
+                <h4>Part 1: Create an interactive visualization (35/50)</h4>
+                <ol>
+                    <li>Use <code><a href="https://d3js.org/d3-hierarchy/hierarchy">d3.hierarchy</a></code> to create a hierarchy out of the given data. </li>
+                    <li>Draw the <b>nodes</b>. For an indented tree, you will need to get all nodes and draw them in an ordered fashion.
+                        <br/>To get the correct position in y, you will need to traverse the tree and add the index information to your node.
+                        Look at the traversal methods in d3's hierarchy documentation (<code>each</code>, <code>eachAfter</code>, <code>eachBefore</code>). Which one works best to order your nodes in this visualization?
+                        <br/>For the position in x, you need to take into account the depth of the node.
+                    </li>
+                    <li>Draw the <b>links</b>. You will need to get all your links from the hierarchy, and join this data array to an svg element. <br/>
+                        The <code>links()</code> method in your <code>hierarchy</code> will give you an array of [target, source] pairs (or [parent, child]).
+                        Use this data to draw a path. You can use <code>d3.line</code> as you did in previous assignments.</li>
+                    <li><b>Make it interactive</b>. Add a <a href="https://d3js.org/d3-selection/events" target="_blank"><code>click</code></a> event to each node that causes the children of that node to be hidden/shown.
+                        <br/>Because we want to be able to use its built-in methods (<code>.descendants()</code>, <code>.links()</code>), we need to update the data hierarchy object and re-draw the tree when that happens.
+                        This means removing the <code>children</code> in the corresponding node, and later adding them back.
+                        In order to do this, you need to store a copy of each node's children that we can access back (e.g.: add a <code>_children</code> property with the original information).
+                    </li>
+                </ol>
+
+                <h4>Part 2: Add transitions (10/50)</h4>
+                Using animations can help users understand the transformations happening in the visualization.
+                <br/>In this case, clicking on a node should reveal/hide its descendants, causing other nodes in the tree to move vertically to accommodate this change.
+                <ol start="5">
+                    <li>Add an animated transition between states, that shows the translation of the nodes across the image.
+                        Feel free to add any other animation that may make interacting with your visualization easier.</li>
+                </ol>
+                In order to do this, you should take a look at <a href="https://d3js.org/d3-transition" target="_blank"><code>d3-transition</code></a>.
+                <br/>Another useful d3 method is the full <a href="https://d3js.org/d3-selection/joining#selection_join" target="_blank"><code>join</code></a> pattern.
+                This allows you to specify how do you handle entries (d3 selections) according to the changes in the data:
+                when they "enter" (entries that were added), are "updated" (their attributes changed) or "exit" (entries that were removed).
+
+                <h4>Part 3: Put your visualization to use (5/50)</h4>
+                <p>Interactive indented trees, as the one you just developed, are useful to explore trees and finding specific nodes. Let's test this out! Write your answers in <b>mammals.md</b></p>
+                <ol start="6">
+                    <li>Can you find us, <i>Homo Sapiens</i>, in the tree? Write down the path to the corresponding node (just as you did for the nodes "title" elements).</li>
+                    <li>Now find domestic cats in the tree. What is the first common ancestor (in the taxonomy, not evolutionary) between us and cats?</li>
+                    <li>What is the distance between the Homo Sapiens and the domestic cat nodes?</li>
+                </ol>
+            </div>
+
+            <div class="species-tree">
+                <svg id="tree"></svg>
+            </div>
+
+            <zero-md src="mammals.md">
+                <template>
+                    <link rel="stylesheet" href="style.css"/>
+                </template>
+            </zero-md>
+        </section>
+
+        <section>
+            <h3>Document Embedding</h3>
+            <p>
+                Text visualizations became more popular with the growing amounts
+                of digitized, textual data. These kinds of visualizations explain
+                relations between textual entities, abstract and summarize text passages
+                and aim for giving users information about the text to help them find
+                relevant text passages more quickly.
+            </p>
+            <p>A document embedding aims at organizing the documents of a corpus by 
+                creating a 2D map that places similar documents close to each other. 
+                This way, clusters of similar documents can become visible, the relation 
+                between (topically related) clusters can be observed and single documents
+                contextualized. 
+            </p>
+            <p>
+               As shown in the lecture, the process of creating a document embedding consists of
+               several steps:
+               <ol>
+                <li>Text Analysis: Prepare the text to be processed by an embedding algorithm.
+                    <ol>
+                        <li>Tokenization</li>
+                        <li>Stopword removal</li>
+                        <li>Stemming</li>
+                        <li>Calculate dictionary</li>
+                        <li>Calculate word vector</li>
+                    </ol>
+                </li>
+                <li>Embed the word vectors with MDS or Tsne</li>
+                <li>Render 2d points</li>
+               </ol>
+            </p>
+
+            <div class="task">
+                <h3>Task 4: Document Embedding (45%)</h3>
+                <p>Implement the missing parts of the document embedding implementation in the <code>document_embedding.js</code>.
+                    Your implementation will work on a movies dataset that is loaded in the <code>index.js</code>. 
+                    The <code>TODOs</code> in the <code>document_embedding.js</code> will lead you through the process.
+                </p>
+            </div>
+
+            <svg id="embedding"></svg>
+
+            <div class="task">
+                <h3>Task 5: Distance Measures for the Document Embedding (5%)</h3>
+                <p>
+                    In the <code>document_embedding.js</code>, you have the choice between three different distance measures.
+                    Try each of them in turn and choose the one that you think captures the semantic relations between the genres best.
+                    Write your choice and one sentence to justify your choice in the <code>distance_measures.md</code>. 
+                </p>
+                
+            </div>
+            <zero-md src=".\distance_measures.md">
+                <template>
+                    <link rel="stylesheet" href="style.css"/>
+                </template>
+            </zero-md>
+            
+        </section>
+
+
+    </main>
+</body>
+
+</html>

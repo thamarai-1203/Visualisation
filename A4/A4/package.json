@@ -1,0 +1,23 @@
+{
+  "name": "solved-a4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "snowpack dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "-": "^0.0.1",
+    "d3": "^7.9.0",
+    "js": "^0.1.0",
+    "mds": "^0.1.7",
+    "ml": "^6.0.0",
+    "natural": "^7.0.5",
+    "snowpack": "^3.7.1",
+    "wink-eng-lite-web-model": "^1.8.0",
+    "wink-nlp": "^2.3.0"
+  }
+}
