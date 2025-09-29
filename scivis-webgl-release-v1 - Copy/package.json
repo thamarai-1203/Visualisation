@@ -1,0 +1,15 @@
+{
+  "name": "scivis-webgl",
+  "version": "1.0.0",
+  "description": "To run this framework, it is necessary to run a local web server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "snowpack dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  }
+}
